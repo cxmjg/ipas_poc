@@ -42,8 +42,6 @@ class DockerDriver:
         contenedor.stop()
         return contenedor.status
     
-    
-    
 
 webtopEnv = {
 
