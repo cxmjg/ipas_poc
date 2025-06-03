@@ -1,10 +1,10 @@
 import docker
 
 class DockerDriver:
-    def __init__(self, base_url='tcp://127.0.0.1:2375'):
-        self.client = docker.DockerClient(base_url=base_url)
+    def __init__(self, baseUrl='tcp://127.0.0.1:2375'):
+        self.client = docker.DockerClient(base_url=baseUrl)
 
-    def descargar_imagen(self, repositorio, tag='latest'):
+    def descargarImagen(self, repositorio, tag='latest'):
         print('Buscando imagen...')
         imagenes = self.client.images.list(name=repositorio)
         if len(imagenes) == 0:
@@ -16,14 +16,26 @@ class DockerDriver:
         print('Finalizado')
         return imagen
 
-    def listar_contenedores(self):
+    def getContenedores(self):
        return self.client.containers.list(all=True)
 
-    def eliminar_contenedores(self):
+    def existeContenedor(self, nombre):
+        try:
+            self.client.containers.get(nombre)
+            return True
+        except docker.errors.NotFound:
+            return False
+
+    def eliminarContenedores(self):
         for contenedor in self.client.containers.list(all=True):
             contenedor.remove()
+    
+    def eliminarContenedor(self, nombre):
+        contenedor= self.client.containers.get(nombre)
+        contenedor.stop()
+        contenedor.remove()
 
-    def crear_contenedor(self, imagen, nombre, comandos=None, env=None, puertos=None):
+    def crearContenedor(self, imagen, nombre, comandos=None, env=None, puertos=None):
         if comandos is None:
             comandos = []
         if env is None:
@@ -32,29 +44,21 @@ class DockerDriver:
             puertos = {}
         return self.client.containers.create(image=imagen, command=comandos, name=nombre, ports=puertos, environment=env)
 
-    def ejecutar_contenedor(self, nombre):
+    def ejecutarContenedor(self, nombre):
         contenedor = self.client.containers.get(nombre)
         contenedor.start()
         return contenedor.status
 
-    def detener_contenedor(self, nombre):
+    def detenerContenedor(self, nombre):
         contenedor = self.client.containers.get(nombre)
         contenedor.stop()
         return contenedor.status
-    
-    
-    
 
-webtopEnv = {
+    def reiniciarContenedor(self, nombre):
+        contenedor = self.client.containers.get(nombre)
+        contenedor.restart()
+        return contenedor.status
 
-}
-
-webtopPorts = {
-    '3000/tcp': 3000,
-    '3001/tcp': 3001
-}
-
-crearContenedor(descargarImagen('lscr.io/linuxserver/webtop'), 'webtop', puertos=webtopPorts)
-detenerContenedor('webtop')
-ejecutarContenedor('webtop')
-#listarContenedores()
+    def getSalud(self, nombre):
+        contenedor = self.client.containers.get(nombre)
+        return contenedor.health
