@@ -6,7 +6,7 @@ class MenuLateral:
             
             with ui.column() as contenedorBotones:
                 for opcion in opciones.keys():
-                    ui.button(opcion).classes('w-[180px] h-auto text-center items-center')
+                    ui.button(opcion, on_click= lambda: opciones[opcion]()).classes('w-[180px] h-auto text-center items-center')
 
             ui.separator()
 

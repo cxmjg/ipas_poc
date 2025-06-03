@@ -4,14 +4,18 @@ from Componentes.Footer import Footer
 from Componentes.Header import Header
 from Componentes.MenuLateral import MenuLateral
 
+
+def mostrarAlerta(texto= 'Clik!'):
+    ui.notification(texto)
+
 usuario = {
     'nombre': 'Ramiro Sabetta',
     'rol': 'Estudiante'
 }
 
 opcionesMenu = {
-    'Mis Documentos':'',
-    'Mis Contenedores': ''
+    'Mis Documentos':mostrarAlerta,
+    'Mis Contenedores': mostrarAlerta
 }
 
 menuLateral = MenuLateral(opcionesMenu, usuario).getMenuLateral()
