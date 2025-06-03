@@ -22,9 +22,9 @@ menuLateral = MenuLateral(opcionesMenu, usuario).getMenuLateral()
 header = Header(menuLateral)
 header.getHeader()
 
-with ui.row().classes('items-center justify-center') as main:
-    ui.label('Empieza a Programar Rápido, Desde Cualquier Lugar').classes('text-7xl w-1/2 font-extrabold font-sans')
-    ui.image('./Frontend/Images/Logo.png').classes('w-1/3')
+with ui.row().classes('items-center justify-center p-0 m-0 gap-0 flex-col sm:flex-row ') as main:
+    ui.label('Empieza a Programar Rápido, Desde Cualquier Lugar').classes('text-center sm:text-left text-3xl lg:text-7xl md:text-5xl w-[50%] font-extrabold font-sans')
+    ui.image('./Frontend/Images/Logo.png').classes('w-[35%] p-0 m-0')
 
 
 footer = Footer()
