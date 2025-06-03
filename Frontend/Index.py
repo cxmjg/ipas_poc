@@ -21,12 +21,12 @@ opcionesMenu = {
 columns = [
     {'name': 'nombre', 'label': 'Nombre', 'field': 'nombre', 'required': True, 'align': 'left'},
     {'name': 'imagen', 'label': 'Imagen', 'field': 'imagen', 'sortable': True},
-    {'name': 'estado', 'label': 'Estado', 'field': 'estado', 'sortable': True},
-    {'name': 'puertos', 'label': 'Puertos', 'field': 'puertos', 'sortable': True},
-    {'name': 'link', 'label': 'Link', 'field': 'link', 'sortable': True},
+    {'name': 'estado', 'label': 'Estado', 'field': 'estado', 'sortable': True, 'align': 'center'},
+    {'name': 'puertos', 'label': 'Puertos', 'field': 'puertos', 'sortable': True, 'align': 'center'},
+    {'name': 'link', 'label': 'Link', 'field': 'link', 'sortable': True, 'align': 'center'},
 ]
 rows = [
-    {'nombre': 'Escritorio XFCE', 'imagen': 'webtop', 'estado':'Activo', 'puertos': '', 'link':'http://localhost:3000'},
+    {'nombre': 'Escritorio XFCE', 'imagen': 'webtop', 'estado':'Activo', 'puertos': 3000, 'link':'http://localhost:3000'},
     {'nombre': 'Base MySQL', 'imagen': 'mysql', 'estado':'Detenido', 'puertos': '', 'link':''},
     {'nombre': 'Servidor WEB', 'imagen': 'apache', 'estado':'Detenido', 'puertos': '', 'link':''},
 ]
@@ -42,8 +42,8 @@ with html.section().classes('w-full justify-evenly') as main:
         
         ui.image('./Frontend/Images/Logo.png').classes('w-[35%] p-0 m-0')
     
-    with ui.column().classes('w-full justify-evenly items-center') as misContenedores:
-        contenedores = ui.table(columns=columns, rows=rows, row_key='nombre').classes('text-black')
+    with ui.column().classes('w-50 justify-evenly items-center') as misContenedores:
+        contenedores = ui.table(columns=columns, rows=rows, row_key='nombre').classes('text-black text-center')
         contenedores.add_slot('body-cell-estado', '''
             <q-td :props="props">
                 <q-badge :color="props.value == 'Detenido' ? 'red' : 'green'">
