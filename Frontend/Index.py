@@ -4,7 +4,6 @@ from Componentes.Footer import Footer
 from Componentes.Header import Header
 from Componentes.MenuLateral import MenuLateral
 
-
 def mostrarAlerta(texto= 'Clik!'):
     ui.notification(texto)
 
@@ -57,7 +56,6 @@ with html.section().classes('w-full justify-evenly') as main:
             </q-td>
         ''')
     
-
 misContenedores.set_visibility(visible=False)
 footer = Footer()
 footer.getFooter()
