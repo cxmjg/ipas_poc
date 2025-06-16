@@ -35,14 +35,9 @@ class DockerDriver:
         contenedor.stop()
         contenedor.remove()
 
-    def crearContenedor(self, imagen, nombre, comandos=None, env=None, puertos=None):
-        if comandos is None:
-            comandos = []
-        if env is None:
-            env = {}
-        if puertos is None:
-            puertos = {}
-        return self.client.containers.create(image=imagen, command=comandos, name=nombre, ports=puertos, environment=env)
+    def crearContenedor(self, imagen, nombre, comandos="", env={}, puertos={}, vol={}):
+        contenedor = self.client.containers.create(image=imagen, command=comandos, name=nombre, ports=puertos, environment=env, volumes=vol)
+        return contenedor
 
     def ejecutarContenedor(self, nombre):
         contenedor = self.client.containers.get(nombre)
@@ -62,3 +57,13 @@ class DockerDriver:
     def getSalud(self, nombre):
         contenedor = self.client.containers.get(nombre)
         return contenedor.health
+
+    def crearRed(self, nombre):
+        red = self.client.networks.create(nombre, driver="bridge")
+        return red
+
+    def getIp(self, nombre):
+        contenedor = self.client.containers.get(nombre)
+        atributos = contenedor.attrs
+        ip = atributos['NetworkSettings']['IPAddress']
+        return ip
