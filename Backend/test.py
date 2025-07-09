@@ -1,7 +1,5 @@
 from DockerDriver import DockerDriver
 
-
-
 docker = DockerDriver()
 
 contenedor = {
@@ -17,12 +15,13 @@ contenedor = {
         'CUSTOM_USER': 'ramirosabetta',
         'PASSWORD': '1234'
     },
-    'volumenes': {'/home/mgarcia/Ambiente/': {
-                        'bind': '/config',
-                        'mode': 'rw',
-                    },
+    'volumenes': {
+        '/home/mgarcia/Ambiente/': {
+            'bind': '/config',
+            'mode': 'rw',
+        },
     },
-    'comandos': ''
+    'comandos': 'mkdir /home/ejemplo'
 }
 
 def getLinks(contenedor):
